@@ -41,7 +41,8 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 
         String token = jwtTokenProvider.generateToken(email);
 
-        response.sendRedirect("http://localhost:3000/login/success?token=" + token);
+        response.sendRedirect("http://localhost:3000/login?token=" + token);
+
 
     }
 
