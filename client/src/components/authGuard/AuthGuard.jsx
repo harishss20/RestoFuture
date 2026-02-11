@@ -1,22 +1,28 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
-function AuthGuard({ children }) {
+export default function AuthGuard({
+  children,
+}) {
+  const { status } = useSession();
+  const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      router.replace("/");
-      return;
-    } else {
+    if (status === "unauthenticated" && pathname !== "/login") {
       router.replace("/login");
     }
-  });
-  return <div>{children}</div>;
-}
 
-export default AuthGuard;
+    if (status === "authenticated" && pathname === "/login") {
+      router.replace("/dashboard");
+    }
+  }, [status, pathname, router]);
+
+  if (status === "loading") return null;
+
+  return <>{children}</>;
+}

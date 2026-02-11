@@ -19,13 +19,11 @@ public class SecurityConfig {
         return http
 
                 .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/","/login/**").permitAll()
+                        .requestMatchers("/","/login/**","/api/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2-> oauth2
                         .successHandler(customOAuth2SuccessHandler)
                 ).build();
-
     }
-
 }

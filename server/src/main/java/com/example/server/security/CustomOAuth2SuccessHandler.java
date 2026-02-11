@@ -33,7 +33,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         hotelRepository.findByEmail(email).orElseGet(()->{
             Hotel hotel = new Hotel();
             hotel.setOwnerName(name);
-            hotel.setEmail(email);
+            hsotel.setEmail(email);
             hotel.setOauthProvider("GOOGLE");
             hotel.setOauthId(oauthId);
             return hotelRepository.save(hotel);
@@ -41,7 +41,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 
         String token = jwtTokenProvider.generateToken(email);
 
-        response.sendRedirect("http://localhost:3000/login?token=" + token);
+        response.sendRedirect("http://localhost:3000/home");
 
 
     }

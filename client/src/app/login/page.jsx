@@ -1,9 +1,19 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
-  const router = useRouter();
-
-  return <div>Logging in...</div>;
+  return (
+    <div>
+      <button
+        onClick={() =>
+          signIn("google", {
+            callbackUrl: "/dashboard",
+          })
+        }
+      >
+        Login with Google
+      </button>
+    </div>
+  );
 }
